@@ -18,6 +18,5 @@ from django.contrib import admin
 from mortgagecalculator import views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'', include('mortgage.urls')),
     url(r'^.*$', views.MainView.as_view()),
 ]
