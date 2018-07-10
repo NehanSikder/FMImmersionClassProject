@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  // rate is ANNUAL INTEREST RATE
+  // rate is ANNUAL INTEREST RATE as a decimal < 1
   rate: number;
   principal: number;
   years: number;
@@ -24,6 +24,11 @@ export class HomeComponent implements OnInit {
   	// set value for paymentAmount
     var fixedPMT = this.fixedPMT(this.principal, this.rate, this.years);
     this.paymentAmount = this.calculatePrincipal(fixedPMT, this.principal, this.rate)
+
+    // change the rate from PERCENT to DECIMAL
+    this.rate = this.rate / 100;
+
+
     console.log('fixedPMT',fixedPMT);
     console.log('this.principal',this.principal);
     console.log('this.rate',this.rate);
