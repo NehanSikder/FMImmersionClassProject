@@ -14,25 +14,25 @@ export class HomeComponent implements OnInit {
   totalInterest: number;
   totalCost: number;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
 	  
   }
 
   calculate() {
-  	// set value for paymentAmount
-    var fixedPMT = this.fixedPMT(this.principal, this.rate, this.years);
-    this.paymentAmount = this.calculatePrincipal(fixedPMT, this.principal, this.rate)
-
-    // change the rate from PERCENT to DECIMAL
-    this.rate = this.rate / 100;
-
+    // convert percent to decimal
+    var decimalRate = this.rate / 100;
+  	
+    // set value for paymentAmount
+    var fixedPMT = this.fixedPMT(this.principal, decimalRate, this.years);
+    this.paymentAmount = this.calculatePrincipal(fixedPMT, this.principal, decimalRate)
 
     console.log('fixedPMT',fixedPMT);
     console.log('this.principal',this.principal);
     console.log('this.rate',this.rate);
-    console.log('this.calculatePrincipal',this.calculatePrincipal(fixedPMT, this.principal, this.rate));
+    console.log('this.calculatePrincipal',this.calculatePrincipal(fixedPMT, this.principal, decimalRate));
 
 
 
@@ -52,8 +52,12 @@ export class HomeComponent implements OnInit {
     // P - principal
     // R - annual interest rate as a decimal!!!
     // Y - number of years
+
+    // convert percent to decimal
+    var decimalRate = this.rate / 100;
+
     var months = 12 * years;
-    var monthlyRate = rate/12;
+    var monthlyRate = decimalRate/12;
     var temp = (monthlyRate * Math.pow((1 + monthlyRate),months))/(Math.pow((1 + monthlyRate),months) - 1);
     return principal * temp;
   }
@@ -62,7 +66,11 @@ export class HomeComponent implements OnInit {
     // fixedPMT is the fixed payment 
     // P is the current principalInput amount
     // R is the annual interest rate
-    var monthlyRate = rate/12;
+
+    // convert percent to decimal
+    var decimalRate = this.rate / 100;
+
+    var monthlyRate = decimalRate/12;
     var next = principalInput - (principalInput* monthlyRate)
     return fixedPMT - (principalInput - next)
     
@@ -72,7 +80,12 @@ export class HomeComponent implements OnInit {
     // fixedPMT is the fixed payment 
     // P is the current principalInput amount
     // R is the annual interest rate
-    var monthlyRate = rate / 12;
+
+
+    // convert percent to decimal
+    var decimalRate = this.rate / 100;
+
+    var monthlyRate = decimalRate / 12;
     var next = principalInput - (principalInput * monthlyRate)
     return (principalInput - next)
   }
@@ -81,6 +94,10 @@ export class HomeComponent implements OnInit {
 /*
   findPaymentStatistics(principle, rate, years) {
     // returns a map of principle paid and interest paid per month
+    
+    // convert percent to decimal
+    var decimalRate = this.rate / 100;
+
     var payments = years * 12;
     var returnMap = {
       'principle' : [null] * payments,
@@ -96,6 +113,8 @@ export class HomeComponent implements OnInit {
       // update the leftover principle that still needs to be paid
       currentPrinciple = currentPrinciple - returnMap['principle'][i];
     }
+
+    return returnMap;
   }
 */
 
