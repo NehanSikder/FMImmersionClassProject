@@ -4,12 +4,13 @@
 <div class="container color-light">
 	<div class="col">
 		<form>
-			<input name="principalAmount" class="number" id="principalAmount" type="number" placeholder="Principal Amount" step="0.01" [(ngModel)]="principal">
-			<input name="rate" class="number" id="rateAmount" type="number" placeholder="Interest Rate Amount" step="0.01" [(ngModel)]="rate">
+			<input name="principalAmount" class="number" step=0.01 id="principalAmount" type="number" placeholder="Principal Amount" step="0.01" [(ngModel)]="principal">
+			<input name="rate" class="number" step=0.01 id="rateAmount" type="number" placeholder="Interest Rate Amount" step="0.01" [(ngModel)]="rate">
 			<input name="years" class="number" id="numberOfYears" type="number" min="1" placeholder="Years" [(ngModel)]="years">
 			<input name="btn" type="submit" class="btn" value="Calculate" (click)="calculate()">
 		</form>
 	</div>
+
 	<div class="col">
 		<p class="output-container">
 			Payment Amount: {{ paymentAmount }}
@@ -18,4 +19,14 @@
 
 		</p>
 	</div>
+</div>
+
+<div class="container color-light">
+	<div class="col">
+		<input name="graph-btn" type="submit" value="Graph" (click)="graphMortgage()">
+			<div [hidden]="!chart">
+				<canvas id="canvas">{{ chart }} </canvas>
+			</div>
+	</div>
+
 </div>
