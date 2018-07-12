@@ -1,0 +1,56 @@
+{
+  "id": "065d7b41-f955-4c53-91b4-cb4cc08143da",
+  "name": "selenium test script ",
+  "url": "http://localhost:8000",
+  "tests": [{
+    "id": "eeabca53-6b26-465a-b2d6-cf1935494296",
+    "name": "Untitled",
+    "commands": [{
+      "id": "67d2b705-ed1f-4b38-becd-cf07980d1d8b",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "value": ""
+    }, {
+      "id": "47556a22-7c97-44a6-8cfe-bd5e7b0154e9",
+      "comment": "",
+      "command": "clickAt",
+      "target": "id=principalAmount",
+      "value": "66,22"
+    }, {
+      "id": "b1cefd78-e484-493e-aa00-3ac7687fe5cf",
+      "comment": "",
+      "command": "type",
+      "target": "id=principalAmount",
+      "value": "300000"
+    }, {
+      "id": "f22a80cd-3262-4d07-9f06-2ab34517af74",
+      "comment": "",
+      "command": "type",
+      "target": "id=rateAmount",
+      "value": "3.9"
+    }, {
+      "id": "8b5743fb-e318-4aeb-86c6-ef56700f4df9",
+      "comment": "",
+      "command": "type",
+      "target": "id=numberOfYears",
+      "value": "30"
+    }, {
+      "id": "b8f2cfeb-48ef-493d-a120-e7e56c14de82",
+      "comment": "",
+      "command": "clickAt",
+      "target": "name=btn",
+      "value": "50,19"
+    }]
+  }],
+  "suites": [{
+    "id": "2eafef6e-5e7f-41be-84d6-69e21e25c7a7",
+    "name": "Default Suite",
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["eeabca53-6b26-465a-b2d6-cf1935494296"]
+  }],
+  "urls": ["http://localhost:8000/"],
+  "plugins": [],
+  "version": "1.0"
+}
