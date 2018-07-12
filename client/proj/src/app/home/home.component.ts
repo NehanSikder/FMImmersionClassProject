@@ -198,32 +198,32 @@ export class HomeComponent implements OnInit {
     return balance;
   }
 
-/*
   findPaymentStatistics(principle, rate, years) {
     // returns a map of principle paid and interest paid per month
 
     // convert percent to decimal
-    var decimalRate = this.rate / 100;
+    var decimalRate = rate / 100;
 
     var payments = years * 12;
-    var returnMap = {
-      'principle' : [null] * payments,
-      'interest' : [null] * payments
-    }
-    var myFixedPMT = this.fixedPMT(principle, rate, years);
-    var currentPrinciple = principle;
 
+    principleArr = new Array<number>(payments);
+    interest = new Array<number>(payments);
+    console.log(principle, rate, years);
+    var myFixedPMT = fixedPMT(principle, rate, years);
+    var currentPrinciple = principle;
+    console.log(calculateInterest(myFixedPMT, currentPrinciple, rate));
     for (var i = 0 ; i < payments; i++) {
       // loops through and adds values to the map
-      returnMap['principle'][i] = this.principal(myFixedPMT, currentPrinciple, rate);
-      returnMap['interest'][i] = this.interest(myFixedPMT, currentPrinciple, rate);
+    principleArr[i] = calculatePrincipal(myFixedPMT, currentPrinciple, rate);
+      interest[i] = calculateInterest(myFixedPMT, currentPrinciple, rate);
+
       // update the leftover principle that still needs to be paid
-      currentPrinciple = currentPrinciple - returnMap['principle'][i];
+      currentPrinciple = currentPrinciple - principleArr[i];
+
     }
 
-    return returnMap;
+    return [principleArr, interest];
   }
-*/
 
 
 }
