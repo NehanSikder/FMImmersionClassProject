@@ -50,7 +50,6 @@ export class HomeComponent implements OnInit {
       data: {
         labels: axis,
         datasets: [
-          {
             label: "Balance on Loan",
             data: balanceData,
             borderColor: '#0082c8',
@@ -188,7 +187,7 @@ export class HomeComponent implements OnInit {
 
   calculateBalance(principal, currentMonth, years, rate){
 
-    var monthlyRate = rate / 12;
+    var monthlyRate = (rate / 100) / 12;
     var totalMonths = 12 * years;
 
     var temp1 = Math.pow(1 + monthlyRate, totalMonths) - Math.pow(1 + monthlyRate, currentMonth);
