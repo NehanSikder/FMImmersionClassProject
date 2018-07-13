@@ -21,6 +21,9 @@ export class HomeComponent implements OnInit {
   monthsMap = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
   constructor() {
+    this.rate = null;
+    this.principal = null;
+    this.years = null;
   }
 
   graphMortgage(decimalRate){
@@ -124,8 +127,20 @@ export class HomeComponent implements OnInit {
   }
 
   calculate() {
+    console.log("rate",this.rate);
+    console.log("years",this.years);
+    console.log("prinicipal",this.principal);
     // convert percent to decimal
     var decimalRate = this.rate / 100;
+    //validate input fields
+    if( !(this.principal) || !(this.rate) || !(this.years) ){
+      alert("User needs to input value for all of the fields")
+      return;
+    }
+    //none of the input fields should be empty
+    //interest rate cant be greater 100 and lower than 1
+    //pricipal ammount cant be negative
+    //years cant be negative
 
     // set value for paymentAmount
     this.paymentAmount = this.fixedPMT(this.principal, decimalRate, this.years);
