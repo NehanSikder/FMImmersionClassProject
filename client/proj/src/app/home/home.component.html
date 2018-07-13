@@ -9,9 +9,11 @@
 			<input name="years" class="number" id="numberOfYears" type="number" min="1" placeholder="Years" [(ngModel)]="years">
 			<input name="btn" type="submit" class="btn" value="Calculate" (click)="calculate()">
 		</form>
+
 		<div [hidden]="!chart">
-				<canvas id="canvas">{{ chart }} </canvas>
-			</div>
+			<canvas id="canvas">{{ chart }} </canvas>
+		</div>
+
 	</div>
 
 	<div class="col">
@@ -26,5 +28,3 @@
 		</p>
 	</div>
 </div>
-
-

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import * as AWS from 'aws-sdk';
+
 
 @Component({
   selector: 'app-realtor',
@@ -13,7 +15,7 @@ export class RealtorComponent implements OnInit {
   realtorLname: string;
   realtorEmail: string;
   phone_number: string;
-  home_picture: any;
+  image: any;
 
 
   constructor() {
@@ -34,12 +36,12 @@ export class RealtorComponent implements OnInit {
 
   }
 
-/*
+
   fileEvent(fileInput: any) {
     const AWSService = AWS;
-    const region = '<insert your region here>';
-    const bucketName = '<insert your bucket name>';
-    const IdentityPoolId = '<insert your identity pool id>';
+    const region = 'us-east-1';
+    const bucketName = 'fmimmersionbuket';
+    const IdentityPoolId = 'us-east-1:b6f9b2b1-792b-4cc3-98d5-4dc9788b30e8';
     const file = fileInput.target.files[0];
   //Configures the AWS service and initial authorization
     AWSService.config.update({
@@ -55,12 +57,15 @@ export class RealtorComponent implements OnInit {
     });
   //I store this in a variable for retrieval later
     this.image = file.name;
+    console.log('got here');
     s3.upload({ Key: file.name, Bucket: bucketName, Body: file, ACL: 'public-read'}, function (err, data) {
      if (err) {
        console.log(err, 'there was an error uploading your file');
+     } else {
+       console.log('no error');
      }
    });
   }
-  */
+
 
 }
