@@ -15,6 +15,8 @@ export class HomeComponent implements OnInit {
   paymentAmount: number;
   totalInterest: number;
   totalCost: number;
+  show_graph: boolean = false;
+
 
   chart = [];
 
@@ -27,22 +29,18 @@ export class HomeComponent implements OnInit {
   }
 
   graphMortgage(decimalRate){
-    var fixedPMT = this.fixedPMT(this.principal, decimalRate, this.years);
-    let balanceData = [];
+
     let axis = [];
+    var fixedPMT = this.fixedPMT(this.principal, decimalRate, this.years);
     var dataArr = this.findPaymentStatistics(this.principal, decimalRate, this.years);
     var principalArr = dataArr[0];
     var interestArr = dataArr[1];
-
-
 
     var date = new Date();
     var currentMonth = date.getMonth();
     var currentYear = date.getFullYear();
 
     for(var i = 0; i <= 12 * this.years; i++){
-//      balanceData[i] = this.calculateBalance(this.principal, i, this.years, this.rate);
-
       if((i + currentMonth) % 12 == 0 && i > 0){
         currentYear = currentYear + 1;
       }
@@ -50,21 +48,19 @@ export class HomeComponent implements OnInit {
       axis[i] = this.monthsMap[(i + currentMonth) % 12] + ", " + currentYear;
     }
 
-    let function2 = [];
-
     this.chart = new Chart('canvas', {
       type: 'line',
       data: {
         labels: axis,
         datasets: [
           {
-            label: "Balance on Loan",
+            label: "Principal Paid",
             data: principalArr,
             borderColor: '#0082c8',
             fill: 'true'
           },
           {
-            label: "Function 2",
+            label: "Interest Paid",
             data: interestArr,
             borderColor: '#e6194b',
             fill: 'false'
@@ -85,20 +81,20 @@ export class HomeComponent implements OnInit {
             display: true
           }],
           yAxes: [{
-            display: true
+            display: true,
+            ticks: {
+              suggestedMin: 0
+            }
           }]
         }
       }
   })
-
   }
 
   ngOnInit() {
     // Calculations here to set ex
 
         let axis = ['January', 'February', 'March', 'April', 'May', 'June', 'July']
-        let function1 = []
-        let function2 = []
 
         this.chart = new Chart('canvas', {
           type: 'line',
@@ -116,10 +112,13 @@ export class HomeComponent implements OnInit {
             },
             scales: {
               xAxes: [{
-                display: true
+                display: true,
               }],
               yAxes: [{
-                display: true
+                display: true,
+                ticks: {
+                  suggestedMin: 0
+                }
               }]
             }
           }
@@ -158,7 +157,7 @@ export class HomeComponent implements OnInit {
     this.totalInterest = this.calculateTotalInterest(this.principal, decimalRate, this.years);
     // set value for total amount
     this.totalCost = this.totalInterest + this.principal;
-    //graph 
+
       this.graphMortgage(decimalRate);
 
 
@@ -252,8 +251,8 @@ export class HomeComponent implements OnInit {
     var payments = years * 12;
     for (var i = 0 ; i < payments; i++) {
     // loops through and adds values to the totalInterest
-      totalInterest = totalInterest + interest[i]; 
-      
+      totalInterest = totalInterest + interest[i];
+
     }
     return totalInterest;
   }
