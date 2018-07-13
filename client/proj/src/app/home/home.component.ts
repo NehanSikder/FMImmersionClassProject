@@ -127,20 +127,29 @@ export class HomeComponent implements OnInit {
   }
 
   calculate() {
-    console.log("rate",this.rate);
-    console.log("years",this.years);
-    console.log("prinicipal",this.principal);
     // convert percent to decimal
-    var decimalRate = this.rate / 100;
+      var decimalRate = this.rate / 100;
     //validate input fields
-    if( !(this.principal) || !(this.rate) || !(this.years) ){
-      alert("User needs to input value for all of the fields")
-      return;
-    }
     //none of the input fields should be empty
+      if( !(this.principal) || !(this.rate) || !(this.years) ){
+        alert("User needs to input value for all of the fields")
+        return;
+      }
     //interest rate cant be greater 100 and lower than 1
+      if (this.rate > 100 || this.rate < 0){
+        alert("Interest rate cannot be less than 0 or greater than 100")
+        return;
+      }
     //pricipal ammount cant be negative
+      if (this.principal < 0){
+        alert("Principal ammount cannot be a negative value")
+        return;
+      }
     //years cant be negative
+      if (this.years < 0){
+        alert("Number of years cannot be a negative value")
+        return;
+      }
 
     // set value for paymentAmount
     this.paymentAmount = this.fixedPMT(this.principal, decimalRate, this.years);
