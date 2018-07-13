@@ -1,0 +1,17 @@
+<div class="container color-light">
+	<div class="col">
+		<div style="width: 100px; padding:0 10px;">
+
+			<form>
+				<input name="address" class="text" id="address" type="text" placeholder="Home Address" [(ngModel)]="address">
+				<input name="price" class="number" step=0.01 id="price" type="number" placeholder="Home Price" step="0.01" [(ngModel)]="price">
+				<input name="realtorFname" class="text" id="realtorFname" type="text" placeholder="First Name" [(ngModel)]="realtorFname">
+      	<input name="realtorLname" class="text" id="realtorLname" type="text" placeholder="Principal Amount" [(ngModel)]="realtorLname">
+      	<input name="realtorEmail" class="text" id="realtorEmail" type="text" placeholder="Email" [(ngModel)]="realtorEmail">
+      	<input name="phone_number" class="text" id="phone_number" type="text" placeholder="Phone Number" [(ngModel)]="phone_number">
+				<input name="btn" type="submit" class="btn" value="Submit" (click)="submitPosting()">
+			</form>
+
+		</div>
+	</div>
+</div>
