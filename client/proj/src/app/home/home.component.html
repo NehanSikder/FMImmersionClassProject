@@ -9,22 +9,20 @@
 			<input name="years" class="number" id="numberOfYears" type="number" min="1" placeholder="Years" [(ngModel)]="years">
 			<input name="btn" type="submit" class="btn" value="Calculate" (click)="calculate()">
 		</form>
-		<div [hidden]="!chart">
-				<canvas id="canvas">{{ chart }} </canvas>
-			</div>
-	</div>
 
-	<div class="col">
 		<p class="output-container">
 			Payment Amount: {{ paymentAmount }}
 			<br>
 			Total Interest: {{ totalInterest }}
 			<br>
 			Total Cost: {{ totalCost }}
-
-
 		</p>
+
+		<div class="col" align="right">
+				<div [hidden]="!chart">
+						<canvas id="canvas">{{ chart }} </canvas>
+				</div>
+		</div>
+
 	</div>
 </div>
-
-
