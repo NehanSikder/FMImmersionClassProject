@@ -7,15 +7,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { RealtorComponent } from './Realtor/realtor.component';
-import { GoogleMapComponent } from './google-map/google-map.component';
-
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    RealtorComponent,
-    GoogleMapComponent
+    RealtorComponent
   ],
   imports: [
     BrowserModule,
