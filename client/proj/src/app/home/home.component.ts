@@ -12,9 +12,9 @@ export class HomeComponent implements OnInit {
   rate: number;
   principal: number;
   years: number;
-  paymentAmount: number;
-  totalInterest: number;
-  totalCost: number;
+  paymentAmount: string;
+  totalInterest: string;
+  totalCost: string;
   show_graph: boolean = false;
 
 
@@ -130,8 +130,19 @@ export class HomeComponent implements OnInit {
       var decimalRate = this.rate / 100;
     //validate input fields
     //none of the input fields should be empty
-      if( !(this.principal) || !(this.rate) || !(this.years) ){
-        alert("User needs to input value for all of the fields")
+      if( !(this.principal) )
+      {
+        alert("User needs to input the principal amount")
+        return;
+      }
+      if( !(this.rate) )
+      {
+        alert("User needs to input the intrest rate amount and interest rate cannot be 0")
+        return;
+      }
+      if( !(this.years) )
+      {
+        alert("User needs to input the number of years")
         return;
       }
     //interest rate cant be greater 100 and lower than 1
@@ -151,22 +162,17 @@ export class HomeComponent implements OnInit {
       }
 
     // set value for paymentAmount
-    this.paymentAmount = this.fixedPMT(this.principal, decimalRate, this.years);
+    this.paymentAmount = (this.fixedPMT(this.principal, decimalRate, this.years)).toFixed(2);
 
     // set value for totalInterest
-    this.totalInterest = this.calculateTotalInterest(this.principal, decimalRate, this.years);
+    var totalInterestFloat = this.calculateTotalInterest(this.principal, decimalRate, this.years);
+    this.totalInterest = (totalInterestFloat).toFixed(2);
     // set value for total amount
-    this.totalCost = this.totalInterest + this.principal;
-
-      this.graphMortgage(decimalRate);
-
-
-  }
+    this.totalCost = (totalInterestFloat + this.principal).toFixed(2);
+    //console.log(this.principal, this.totalCost);
+    this.graphMortgage(decimalRate);
 
 
-  testFixedPMT() {
-   // testSet = [(0,0,0), (100000, 6, 15)];
-    // test not complete
   }
 
 
