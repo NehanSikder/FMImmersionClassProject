@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as AWS from 'aws-sdk';
+import { HttpClient } from '@angular/common/http';
 
 
 @Component({
@@ -17,10 +18,8 @@ export class RealtorComponent implements OnInit {
   phone_number: string;
   image: any;
 
-
-  constructor() {
+  constructor(private http : HttpClient){
   }
-
   ngOnInit() {
 
   }
@@ -43,7 +42,9 @@ export class RealtorComponent implements OnInit {
     const bucketName = 'fmimmersionbuket';
     const IdentityPoolId = 'us-east-1:b6f9b2b1-792b-4cc3-98d5-4dc9788b30e8';
     const file = fileInput.target.files[0];
-  //Configures the AWS service and initial authorization
+    console.log(file);
+    var uuid;
+      //Configures the AWS service and initial authorization
     AWSService.config.update({
       region: region,
       credentials: new AWSService.CognitoIdentityCredentials({
@@ -55,16 +56,31 @@ export class RealtorComponent implements OnInit {
       apiVersion: '2006-03-01',
       params: { Bucket: bucketName}
     });
-  //I store this in a variable for retrieval later
-    this.image = file.name;
-    console.log('got here');
-    s3.upload({ Key: file.name, Bucket: bucketName, Body: file, ACL: 'public-read'}, function (err, data) {
-     if (err) {
-       console.log(err, 'there was an error uploading your file');
-     } else {
-       console.log('no error');
-     }
-   });
+
+    this.http.get('https://www.uuidgenerator.net/api/version1',{responseType: 'text'}).subscribe(data => {
+        console.log(data);
+
+        // creates the  unique name to be stores in the s3 bucket
+        uuid = data.substring(0, data.length-2);
+        this.image = uuid;
+        s3.upload({ 
+           Key: uuid, 
+           Bucket: bucketName, 
+           Body: file,
+           ACL: 'public-read',
+           ContentType: file.type
+         }, function (err, data) {
+           if (err) {
+             console.log(err, 'there was an error uploading your file');
+           } else {
+             console.log('no error in S3 upload');
+           }
+       });
+    });
+ 
+
+
+
   }
 
 
