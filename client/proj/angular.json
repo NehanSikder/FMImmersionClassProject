@@ -27,9 +27,14 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+							"node_modules/bootstrap/dist/css/bootstrap.min.css"
             ],
-            "scripts": []
+            "scripts": [
+              "/Users/Jason/Desktop/NewHireProject/FMImmersionClassProject/client/proj/node_modules/bootstrap/dist/js/bootstrap.min.js",
+							"/Users/Jason/Desktop/NewHireProject/FMImmersionClassProject/client/proj/node_modules/jquery/dist/jquery.min.js",
+							"/Users/Jason/Desktop/NewHireProject/FMImmersionClassProject/client/proj/node_modules/popper.js/dist/umd/popper.min.js"
+						]
           },
           "configurations": {
             "production": {
