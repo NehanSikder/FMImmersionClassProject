@@ -13,16 +13,21 @@ export class HomeComponent implements OnInit {
   rate: number;
   principal: number;
   years: number;
-  paymentAmount: number;
-  totalInterest: number;
-  totalCost: number;
+  paymentAmount: string;
+  totalInterest: string;
+  totalCost: string;
+  show_graph: boolean = false;
   houseList: Array<object> = [];
+
 
   chart = [];
 
   monthsMap = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
   constructor(private http : HttpClient, private  apiService:  APIService) {
+    this.rate = null;
+    this.principal = null;
+    this.years = null;
   }
 
   public getData(){
@@ -32,22 +37,18 @@ export class HomeComponent implements OnInit {
       });
   }
   graphMortgage(decimalRate){
-    var fixedPMT = this.fixedPMT(this.principal, decimalRate, this.years);
-    let balanceData = [];
+
     let axis = [];
+    var fixedPMT = this.fixedPMT(this.principal, decimalRate, this.years);
     var dataArr = this.findPaymentStatistics(this.principal, decimalRate, this.years);
     var principalArr = dataArr[0];
     var interestArr = dataArr[1];
-
-
 
     var date = new Date();
     var currentMonth = date.getMonth();
     var currentYear = date.getFullYear();
 
     for(var i = 0; i <= 12 * this.years; i++){
-//      balanceData[i] = this.calculateBalance(this.principal, i, this.years, this.rate);
-
       if((i + currentMonth) % 12 == 0 && i > 0){
         currentYear = currentYear + 1;
       }
@@ -55,21 +56,19 @@ export class HomeComponent implements OnInit {
       axis[i] = this.monthsMap[(i + currentMonth) % 12] + ", " + currentYear;
     }
 
-    let function2 = [];
-
     this.chart = new Chart('canvas', {
       type: 'line',
       data: {
         labels: axis,
         datasets: [
           {
-            label: "Balance on Loan",
+            label: "Principal Paid",
             data: principalArr,
             borderColor: '#0082c8',
             fill: 'true'
           },
           {
-            label: "Function 2",
+            label: "Interest Paid",
             data: interestArr,
             borderColor: '#e6194b',
             fill: 'false'
@@ -90,20 +89,20 @@ export class HomeComponent implements OnInit {
             display: true
           }],
           yAxes: [{
-            display: true
+            display: true,
+            ticks: {
+              suggestedMin: 0
+            }
           }]
         }
       }
   })
-
   }
 
   ngOnInit() {
     // Calculations here to set ex
         this.getData()
         let axis = ['January', 'February', 'March', 'April', 'May', 'June', 'July']
-        let function1 = []
-        let function2 = []
 
         this.chart = new Chart('canvas', {
           type: 'line',
@@ -121,10 +120,13 @@ export class HomeComponent implements OnInit {
             },
             scales: {
               xAxes: [{
-                display: true
+                display: true,
               }],
               yAxes: [{
-                display: true
+                display: true,
+                ticks: {
+                  suggestedMin: 0
+                }
               }]
             }
           }
@@ -133,25 +135,52 @@ export class HomeComponent implements OnInit {
 
   calculate() {
     // convert percent to decimal
-    var decimalRate = this.rate / 100;
+      var decimalRate = this.rate / 100;
+    //validate input fields
+    //none of the input fields should be empty
+      if( !(this.principal) )
+      {
+        alert("User needs to input the principal amount")
+        return;
+      }
+      if( !(this.rate) )
+      {
+        alert("User needs to input the intrest rate amount and interest rate cannot be 0")
+        return;
+      }
+      if( !(this.years) )
+      {
+        alert("User needs to input the number of years")
+        return;
+      }
+    //interest rate cant be greater 100 and lower than 1
+      if (this.rate > 100 || this.rate < 0){
+        alert("Interest rate cannot be less than 0 or greater than 100")
+        return;
+      }
+    //pricipal ammount cant be negative
+      if (this.principal < 0){
+        alert("Principal ammount cannot be a negative value")
+        return;
+      }
+    //years cant be negative
+      if (this.years < 0){
+        alert("Number of years cannot be a negative value")
+        return;
+      }
 
     // set value for paymentAmount
-    this.paymentAmount = this.fixedPMT(this.principal, decimalRate, this.years);
+    this.paymentAmount = (this.fixedPMT(this.principal, decimalRate, this.years)).toFixed(2);
 
     // set value for totalInterest
-    this.totalInterest = this.calculateTotalInterest(this.principal, decimalRate, this.years);
+    var totalInterestFloat = this.calculateTotalInterest(this.principal, decimalRate, this.years);
+    this.totalInterest = (totalInterestFloat).toFixed(2);
     // set value for total amount
-    this.totalCost = this.totalInterest + this.principal;
-    //graph 
-      this.graphMortgage(decimalRate);
+    this.totalCost = (totalInterestFloat + this.principal).toFixed(2);
+    //console.log(this.principal, this.totalCost);
+    this.graphMortgage(decimalRate);
 
 
-  }
-
-
-  testFixedPMT() {
-   // testSet = [(0,0,0), (100000, 6, 15)];
-    // test not complete
   }
 
 
@@ -236,8 +265,8 @@ export class HomeComponent implements OnInit {
     var payments = years * 12;
     for (var i = 0 ; i < payments; i++) {
     // loops through and adds values to the totalInterest
-      totalInterest = totalInterest + interest[i]; 
-      
+      totalInterest = totalInterest + interest[i];
+
     }
     return totalInterest;
   }
