@@ -8,6 +8,8 @@ import { HomeComponent } from './home/home.component';
 import { RealtorComponent } from './Realtor/realtor.component';
 import { HttpClientModule } from '@angular/common/http';
 
+import { APIService } from  './api.service';
+
 @NgModule({
   declarations: [
     AppComponent,

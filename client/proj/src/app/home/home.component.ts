@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Chart } from 'chart.js';
-
+import { APIService } from  '../api.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-home',
@@ -15,14 +16,21 @@ export class HomeComponent implements OnInit {
   paymentAmount: number;
   totalInterest: number;
   totalCost: number;
+  houseList: Array<object> = [];
 
   chart = [];
 
   monthsMap = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
-  constructor() {
+  constructor(private http : HttpClient, private  apiService:  APIService) {
   }
 
+  public getData(){
+    this.apiService.getData().subscribe((data:  Array<object>) => {
+          this.houseList  =  data;
+          console.log(data);
+      });
+  }
   graphMortgage(decimalRate){
     var fixedPMT = this.fixedPMT(this.principal, decimalRate, this.years);
     let balanceData = [];
@@ -92,7 +100,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     // Calculations here to set ex
-
+        this.getData()
         let axis = ['January', 'February', 'March', 'April', 'May', 'June', 'July']
         let function1 = []
         let function2 = []

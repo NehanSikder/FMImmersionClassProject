@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import * as AWS from 'aws-sdk';
 import { HttpClient } from '@angular/common/http';
-
+import { APIService } from  '../api.service';
 
 @Component({
   selector: 'app-realtor',
   templateUrl: './realtor.component.html',
   styleUrls: ['./realtor.component.scss']
 })
+
 export class RealtorComponent implements OnInit {
 
   address: string;
@@ -17,12 +18,38 @@ export class RealtorComponent implements OnInit {
   realtorEmail: string;
   phone_number: string;
   image: any;
+  houseId: number;
+  houseList: Array<object> = [];
 
-  constructor(private http : HttpClient){
+  constructor(private http : HttpClient, private  apiService:  APIService){
   }
+
   ngOnInit() {
 
   }
+
+/*
+createContact(){
+
+var  contact  = {
+    account:  1,
+    address:  "Home N 333 Apartment 300",
+    createdBy:  1,
+    description:  "This is the third contact",
+    email:  "abbess@email.com",
+    first_name:  "kaya",
+    isActive: true,
+    last_name: "Abbes",
+    phone: "00121212101"
+};
+this.apiService.createContact(contact).subscribe((response) => {
+    console.log(response);
+});
+};
+}
+}
+*/
+  
 
   submitPosting(){
 
