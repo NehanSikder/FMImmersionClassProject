@@ -26,9 +26,10 @@
     "core-js": "^2.5.4",
     "jquery": "^3.3.1",
     "rxjs": "^6.2.2",
-    "zone.js": "^0.8.26"
-    "aws-sdk": "^2.274.1"
-    "popper.js": "^1.14.3",
+    "zone.js": "^0.8.26",
+    "aws-sdk": "^2.274.1",
+    "popper.js": "^1.14.3"
+  },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.6.8",
     "@angular/cli": "~6.0.8",
