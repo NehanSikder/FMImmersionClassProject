@@ -56,32 +56,43 @@ export class HomeComponent implements OnInit {
           {
             label: "Principal Paid",
             data: principalArr,
-            borderColor: '#0082c8',
-            fill: 'true'
+            borderColor: '#30638E',
+            borderWidth: 3,
           },
           {
             label: "Interest Paid",
             data: interestArr,
-            borderColor: '#e6194b',
-            fill: 'false'
+            borderColor: '#ED6A5A',
+            borderWidth: 3,
           },
         ]
       },
       options: {
         title: {
           display: true,
-          text: 'The Mortgage Calculator'
+          text: 'Principal and Interest Paid Over Time',
+          fontSize: 18
         },
         legend: {
           display: true,
-          position: 'right'
+          position: 'top'
         },
         scales: {
           xAxes: [{
-            display: true
+            display: true,
+            gridLines: {
+                    display:true
+                }
           }],
           yAxes: [{
             display: true,
+            scaleLabel: {
+              display: true,
+              labelString: 'Money',
+            },
+            gridLines: {
+                    display:true
+                },
             ticks: {
               suggestedMin: 0
             }
@@ -95,7 +106,7 @@ export class HomeComponent implements OnInit {
     // Calculations here to set ex
 
         let axis = ['January', 'February', 'March', 'April', 'May', 'June', 'July']
-
+        Chart.defaults.global.defaultFontColor = '#000';
         this.chart = new Chart('canvas', {
           type: 'line',
           data: {
@@ -104,7 +115,8 @@ export class HomeComponent implements OnInit {
           options: {
             title: {
               display: true,
-              text: 'The Mortgage Calculator'
+              text: 'Principal and Interest Paid Over Time',
+              fontSize: 18
             },
             legend: {
               display: true,
@@ -117,7 +129,14 @@ export class HomeComponent implements OnInit {
               yAxes: [{
                 display: true,
                 ticks: {
-                  suggestedMin: 0
+                  beginAtZero: true,
+                  stepSize: 1000,
+                  max: 5000,
+                  min: 0,
+                },
+                scaleLabel: {
+                  display: true,
+                  labelString: 'Money',
                 }
               }]
             }

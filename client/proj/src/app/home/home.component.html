@@ -1,28 +1,29 @@
-<div class="container color-dark" style="text-align:center">
-	<h3>Mortgage Calculator1</h3>
+<div class="container" style="text-align:center">
+	<h3>Mortgage Calculator</h3>
 </div>
 <div class="container color-light">
-	<div class="col">
-		<form>
-			<input name="principalAmount" class="number" id="principalAmount" type="number" placeholder="Principal Amount" step="0.01" [(ngModel)]="principal">
-			<input name="rate" class="number" id="rateAmount" type="number" placeholder="Interest Rate Amount" step="0.01" [(ngModel)]="rate">
-			<input name="years" class="number" id="numberOfYears" type="number" min="1" placeholder="Years" [(ngModel)]="years">
-			<input name="btn" type="submit" class="btn" value="Calculate" (click)="calculate()">
-		</form>
+    <!--Row with two equal columns-->
+    <div class="row">
+        <div class="col-md-6">
+        	<form>
+        		<div class="form-group">
+        			<input name="principalAmount" class="form-control" id="principalAmount" type="number" placeholder="Principal Amount" step="0.01" [(ngModel)]="principal">
+					<input name="rate" class="form-control" id="rateAmount" type="number" placeholder="Interest Rate Amount" step="0.01" [(ngModel)]="rate">
+					<input name="years" class="form-control" id="numberOfYears" type="number" min="1" placeholder="Years" [(ngModel)]="years">
+					<input name="btn" type="submit" class="btn btn-success btn-lg" value="Calculate" (click)="calculate()">	
+        		</div>
+			</form>
+			<div class="output-container">
+				<h4>Payment Amount: {{ paymentAmount }}</h4>
+				<h4>Total Interest: {{ totalInterest }}</h4>
+				<h4>Total Cost: {{ totalCost }}</h4>
+			</div>
+        </div>
+        <div class="col-md-6">TAREK Map GOES HERE</div>
+        <div class="col-md-12 graph" [hidden]="!chart">
+			<canvas id="canvas">{{ chart }} </canvas>
+        </div>
 
-		<p class="output-container">
-			Payment Amount: {{ paymentAmount }}
-			<br>
-			Total Interest: {{ totalInterest }}
-			<br>
-			Total Cost: {{ totalCost }}
-		</p>
+    </div>
 
-		<div class="col" align="right">
-				<div [hidden]="!chart">
-						<canvas id="canvas">{{ chart }} </canvas>
-				</div>
-		</div>
-
-	</div>
 </div>

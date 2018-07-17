@@ -1,6 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
+html {
+  height: auto;
+  min-height: 100%;
+}
+
 body {
-	background: #FFFFFF;
+	background-image: linear-gradient(to bottom, #011627, #473d51, #876b75, #c0a29a, #eee0cb);
   font-family: "Lato", "Arial", sans-serif;
   font-size: 14px;
   font-weight: 400;
@@ -8,8 +13,7 @@ body {
   -webkit-font-smoothing: antialiased !important;
   -moz-osx-font-smoothing: grayscale !important;
   -ms-overflow-style: scrollbar;
-  background-color: #e7eaeb;
-  color: #616f77; 
+  height: 100%; 
 }
 
 .navbar {
@@ -105,4 +109,9 @@ body {
   -ms-transform: translateY(-100%);
   -o-transform: translateY(-100%);
   transform: translateY(-100%); 
+}
+
+.jumbotron {
+   background: rgb(200, 54, 54); /* This is for ie8 and below */
+   background: rgba(200, 54, 54, 0.5); 
 }
