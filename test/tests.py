@@ -11,7 +11,7 @@ class MortgageCalculatTestSuite(unittest.TestCase):
 		os.environ["webdriver.chrome.driver"] = chromedriver
 		self.port = "8000"
 		self.driver = webdriver.Chrome(chromedriver)
-		self.driver.get("http://localhost:"+self.port+"/home")
+		self.driver.get("http://localhost:"+self.port)
 		self.principalInput = self.driver.find_element_by_id("principalAmount")
 		self.interestRateInput = self.driver.find_element_by_id("rateAmount")
 		self.yearsInput = self.driver.find_element_by_id("numberOfYears")
