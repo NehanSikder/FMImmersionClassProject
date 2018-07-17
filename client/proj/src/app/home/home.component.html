@@ -1,28 +1,43 @@
-<div class="container color-dark" style="text-align:center">
-	<h3>Mortgage Calculator1</h3>
+<div class="container" style="text-align:center">
+	<h2>Mortgage Calculator</h2>
 </div>
-<div class="container color-light">
-	<div class="col">
-		<form>
-			<input name="principalAmount" class="number" id="principalAmount" type="number" placeholder="Principal Amount" step="0.01" [(ngModel)]="principal">
-			<input name="rate" class="number" id="rateAmount" type="number" placeholder="Interest Rate Amount" step="0.01" [(ngModel)]="rate">
-			<input name="years" class="number" id="numberOfYears" type="number" min="1" placeholder="Years" [(ngModel)]="years">
-			<input name="btn" type="submit" class="btn" value="Calculate" (click)="calculate()">
-		</form>
+<div class="container">
 
-		<p class="output-container">
-			Payment Amount: {{ paymentAmount }}
-			<br>
-			Total Interest: {{ totalInterest }}
-			<br>
-			Total Cost: {{ totalCost }}
-		</p>
-
-		<div class="col" align="right">
-				<div [hidden]="!chart">
-						<canvas id="canvas">{{ chart }} </canvas>
-				</div>
+	<div class="row align-items-center">
+		<div class="col-3" align="right">PrincipalAmount: </div>
+		<div class="col-9" align="left">
+			<input name="principalAmount" class="number" id="principalAmount" type="number" placeholder="Enter Mortgage Amount..." step="0.01"
+			 [(ngModel)]="principal">
 		</div>
-
 	</div>
+	<div class="row align-items-center">
+		<div class="col-3" align="right">Mortgage Rate: </div>
+		<div class="col-9" align="left">
+			<input name="rate" class="number" id="rateAmount" type="number" placeholder="Enter Mortgage Rate..." step="0.01" [(ngModel)]="rate">
+		</div>
+	</div>
+	<div class="row align-items-center">
+		<div class="col-3" align="right">Year: </div>
+		<div class="col-9" align="left">
+			<input name="years" class="number" id="numberOfYears" type="number" min="1" placeholder="Enter Years of Mortgage..." [(ngModel)]="years">
+		</div>
+	</div>
+	<div class="" align="center">
+		<form>
+			<input name="btn" type="submit" class="btn btn-primary" value="Calculate" (click)="calculate()">
+		</form>
+	</div>
+
+	<p class="output-container">
+		Payment Amount: {{ paymentAmount }}
+		<br> Total Interest: {{ totalInterest }}
+		<br> Total Cost: {{ totalCost }}
+	</p>
+
+	<div class="col" align="center">
+		<div [hidden]="!chart">
+			<canvas id="canvas">{{ chart }} </canvas>
+		</div>
+	</div>
+
 </div>
