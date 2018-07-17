@@ -50,15 +50,35 @@ this.apiService.createContact(contact).subscribe((response) => {
 }
 */
   
+  submitPicPosting(picURL) {
+    if (this.houseId == null) {
+      // do nothing, shoudl create alert to tell user to first post a house!
+    } else {
+      var picture = {
+        'houseFkey' : this.houseId,
+        'picURL' : picURL
+      }
+      this.apiService.createPic(picture).subscribe((data) => {
+        console.log(data);
+      });
+      
 
-  submitPosting(){
+    }  
 
-    console.log(this.address)
-    console.log(this.price)
-    console.log(this.realtorFname)
-    console.log(this.realtorLname)
-    console.log(this.realtorEmail)
-    console.log(this.phone_number)
+  }
+  submitHousePosting(){
+    var house = {
+        'address' : this.address,
+        'price' : this.price,
+        'realtorFname' : this.realtorFname,
+        'realtorLname' : this.realtorLname,
+        'realtorEmail' : this.realtorEmail,
+        'phone_number' : this.phone_number,
+    }
+    this.apiService.createHouse(house).subscribe((data) => {
+        console.log(data);
+        this.houseId = data['houseID'];
+    });  
 
   }
 
@@ -101,6 +121,7 @@ this.apiService.createContact(contact).subscribe((response) => {
              console.log(err, 'there was an error uploading your file');
            } else {
              console.log('no error in S3 upload');
+             this.submitPicPosting('https://s3.amazonaws.com/fmimmersionbuket/'+uuid);
            }
        });
     });

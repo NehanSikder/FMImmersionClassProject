@@ -14,9 +14,9 @@ export  class  APIService {
 	    return  this.httpClient.get(`${this.API_GET_URL}/`);
 	}
 	createHouse(house){
-	    return  this.httpClient.post(`${this.API_POST_HOUSE_URL}/contacts/`,contact);
+	    return  this.httpClient.post(`${this.API_POST_HOUSE_URL}/`, house);
 	}
 	createPic(pic) {
-		return  this.httpClient.post(`${this.API_POST_PIC_URL}/contacts/`,contact);
+		return  this.httpClient.post(`${this.API_POST_PIC_URL}/`, pic);
 	}
 }

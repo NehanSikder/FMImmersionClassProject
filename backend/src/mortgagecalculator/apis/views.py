@@ -20,6 +20,7 @@ address = models.CharField(max_length = 500)
 """
 FIELDS  = [
         'address',
+        'price',
         'realtorFname',
         'realtorLname',
         'realtorEmail',
@@ -63,6 +64,7 @@ class PostDataView(View):
         try:
             obj = HouseInfo.objects.create(
                 address = house['address'],
+                price = house['price'],
                 realtorFname = house['realtorFname'],
                 realtorLname = house['realtorLname'],
                 realtorEmail = house['realtorEmail'],
@@ -71,7 +73,7 @@ class PostDataView(View):
         except Exception as e:
             return HttpResponse('failed to create house object, please contact a dev')
         else:
-            return HttpResponse('success!')
+            return JsonResponse(json.dumps({ 'houseID' : obj.id}))
 
 class GetDataView(View):
     def newHouseJsonObj(self):
