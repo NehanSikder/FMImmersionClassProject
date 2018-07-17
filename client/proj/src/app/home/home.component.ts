@@ -101,7 +101,8 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     // Calculations here to set ex
-        this.getData()
+        
+        // this.getData()
         let axis = ['January', 'February', 'March', 'April', 'May', 'June', 'July']
 
         this.chart = new Chart('canvas', {
