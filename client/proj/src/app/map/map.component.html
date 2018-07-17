@@ -1,0 +1,5 @@
+<agm-map [zoom]="15" [latitude]="latitude" [longitude]="longitude">
+   <agm-marker  [latitude]="address.latitude_coordinate" [longitude]="address.longitude_coordinate" *ngFor="let address of address_list; let i=index"></agm-marker>
+   <agm-marker  [latitude]="latitude" [longitude]="longitude"></agm-marker>
+
+</agm-map>

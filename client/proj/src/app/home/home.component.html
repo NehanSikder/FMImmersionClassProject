@@ -10,7 +10,7 @@
         			<input name="principalAmount" class="form-control" id="principalAmount" type="number" placeholder="Principal Amount" step="0.01" [(ngModel)]="principal">
 					<input name="rate" class="form-control" id="rateAmount" type="number" placeholder="Interest Rate Amount" step="0.01" [(ngModel)]="rate">
 					<input name="years" class="form-control" id="numberOfYears" type="number" min="1" placeholder="Years" [(ngModel)]="years">
-					<input name="btn" type="submit" class="btn btn-success btn-lg" value="Calculate" (click)="calculate()">	
+					<input name="btn" type="submit" class="btn btn-success btn-lg" value="Calculate" (click)="calculate()">
         		</div>
 			</form>
 			<div class="output-container">
@@ -19,7 +19,9 @@
 				<h4>Total Cost: {{ totalCost }}</h4>
 			</div>
         </div>
-        <div class="col-md-6">TAREK Map GOES HERE</div>
+        <div class="col-md-6">
+					<app-map></app-map>
+				</div>
         <div class="col-md-12 graph" [hidden]="!chart">
 			<canvas id="canvas">{{ chart }} </canvas>
         </div>
