@@ -24,7 +24,9 @@ FIELDS  = [
         'realtorFname',
         'realtorLname',
         'realtorEmail',
-        'phone_number'
+        'phone_number',
+        'longitude',
+        'latitude',
 ]
 
 @method_decorator(csrf_exempt, name='dispatch')
@@ -55,7 +57,8 @@ class PostDataView(View):
     def post(self, request):
         body = request.body.decode("utf-8")
         request.POST = json.loads(body)
-        data = request.POST['data']
+
+        data = request.POST
         house = {}
         for key in data.keys():
             if key in FIELDS:
@@ -65,15 +68,17 @@ class PostDataView(View):
             obj = HouseInfo.objects.create(
                 address = house['address'],
                 price = house['price'],
+                lat = house['latitude'],
+                lon = house['longitude'],
                 realtorFname = house['realtorFname'],
                 realtorLname = house['realtorLname'],
                 realtorEmail = house['realtorEmail'],
                 phone_number = house['phone_number']
             )
         except Exception as e:
-            return HttpResponse('failed to create house object, please contact a dev')
+            return HttpResponse(e)
         else:
-            return JsonResponse(json.dumps({ 'houseID' : obj.id}))
+            return JsonResponse({ 'houseID' : obj.id}, safe = False)
 
 class GetDataView(View):
     def newHouseJsonObj(self):
@@ -96,7 +101,7 @@ class GetDataView(View):
             jsonify = house.__dict__
 
             #creates the house json object
-            currHouse = newHouseJsonObj
+            currHouse = self.newHouseJsonObj()
 
             #set PK
             currHouse['primary_key'] = house.id
@@ -111,7 +116,6 @@ class GetDataView(View):
             for p in pictures:
                 currHouse['pictures'].append(p)
             jsonOutput['houses'].append(currHouse)
-
         return JsonResponse(jsonOutput, safe=False)
 
 

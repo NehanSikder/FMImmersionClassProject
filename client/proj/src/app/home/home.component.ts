@@ -17,7 +17,7 @@ export class HomeComponent implements OnInit {
   totalInterest: string;
   totalCost: string;
   show_graph: boolean = false;
-  houseList: Array<object> = [];
+  houseList: Array<string> = [];
 
 
   chart = [];
@@ -31,8 +31,8 @@ export class HomeComponent implements OnInit {
   }
 
   public getData(){
-    this.apiService.getData().subscribe((data:  Array<object>) => {
-          this.houseList  =  data;
+    this.apiService.getData().subscribe((data) => {
+          // this.houseList  =  data;
           console.log(data);
       });
   }
