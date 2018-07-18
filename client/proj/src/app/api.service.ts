@@ -11,12 +11,15 @@ export  class  APIService {
 	API_POST_PIC_URL = 'http://localhost:8000/api/postPic';
 	constructor(private  httpClient:  HttpClient) {}
 	getData(){
-	    return  this.httpClient.get(`${this.API_GET_URL}/`);
+
+	    var temp = this.httpClient.get(`${this.API_GET_URL}`, {responseType: 'text'});
+	    console.log(temp);
+	    return temp;
 	}
 	createHouse(house){
-	    return  this.httpClient.post(`${this.API_POST_HOUSE_URL}/`, house);
+	    return  this.httpClient.post(`${this.API_POST_HOUSE_URL}`, house);
 	}
 	createPic(pic) {
-		return  this.httpClient.post(`${this.API_POST_PIC_URL}/`, pic);
+		return  this.httpClient.post(`${this.API_POST_PIC_URL}`, pic);
 	}
 }

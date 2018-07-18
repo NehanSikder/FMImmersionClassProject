@@ -28,7 +28,9 @@ export class RealtorComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.apiService.getData().subscribe(data => {
+        console.log(data);
+    }); 
   }
 
 /*

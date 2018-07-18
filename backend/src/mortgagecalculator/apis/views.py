@@ -107,7 +107,7 @@ class GetDataView(View):
             jsonify = house.__dict__
 
             #creates the house json object
-            currHouse = newHouseJsonObj
+            currHouse = self.newHouseJsonObj()
 
             #set PK
             currHouse['primary_key'] = house.id
@@ -122,7 +122,6 @@ class GetDataView(View):
             for p in pictures:
                 currHouse['pictures'].append(p)
             jsonOutput['houses'].append(currHouse)
-
         return JsonResponse(jsonOutput, safe=False)
 
 
