@@ -91,6 +91,13 @@ class MortgageCalculatTestSuite(unittest.TestCase):
 		alert = self.driver.switch_to.alert
 		self.assertEqual(alert.text, "Interest rate cannot be less than 0 or greater than 100")
 
+	def test_years_rate_less_than_0(self):
+		self.principalInput.send_keys("300000")
+		self.interestRateInput.send_keys("3.9")
+		self.yearsInput.send_keys("-30")
+		self.calculateButton.click()
+		alert = self.driver.switch_to.alert
+		self.assertEqual(alert.text, "Number of years cannot be a negative value")
 
 
 	def tearDown(self):
