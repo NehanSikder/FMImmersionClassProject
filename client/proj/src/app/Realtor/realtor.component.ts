@@ -74,7 +74,7 @@ this.apiService.createContact(contact).subscribe((response) => {
     this.getHouseLocationThenPost(this.address, this.price, this.realtorFname, this.realtorLname, this.realtorEmail, this.phone_number);
   }
 
-  getHouseLocationThenPost(address: string, price: number, realtorFname: string, realtorLname: string, realtorEmail: string, phone_number: number){
+  getHouseLocationThenPost(address: string, price: number, realtorFname: string, realtorLname: string, realtorEmail: string, phone_number: string){
 
     var _apiService = this.apiService
 

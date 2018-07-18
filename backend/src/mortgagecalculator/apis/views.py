@@ -24,7 +24,9 @@ FIELDS  = [
         'realtorFname',
         'realtorLname',
         'realtorEmail',
-        'phone_number'
+        'phone_number',
+        'longitude',
+        'latitude'
 ]
 
 @method_decorator(csrf_exempt, name='dispatch')
@@ -49,9 +51,14 @@ class PostPictureView(View):
         else:
             return HttpResponse('success!')  
 
-@method_decorator(csrf_exempt, name='dispatch')
+# @method_decorator(csrf_exempt, name='dispatch')
 class PostDataView(View):
 
+    @csrf_exempt
+    def dispatch(self, *args, **kwargs):
+        return super(PostDataView, self).dispatch(*args, **kwargs)
+
+    @csrf_exempt
     def post(self, request):
         body = request.body.decode("utf-8")
         request.POST = json.loads(body)
@@ -68,7 +75,9 @@ class PostDataView(View):
                 realtorFname = house['realtorFname'],
                 realtorLname = house['realtorLname'],
                 realtorEmail = house['realtorEmail'],
-                phone_number = house['phone_number']
+                phone_number = house['phone_number'],
+                longitude = house['longitude'],
+                latitude = house['latitude']
             )
         except Exception as e:
             return HttpResponse('failed to create house object, please contact a dev')
@@ -85,6 +94,8 @@ class GetDataView(View):
             'realtorEmail' : None,
             'phone_number' : None,
             'pictures' : [],
+            'longitude': None,
+            'latitude': None
         }
     def get(self, request):
         jsonOutput = {'houses' : []}
