@@ -7,6 +7,8 @@ from django.core.validators import RegexValidator
 # Create your models here.
 class HouseInfo(models.Model):
     address = models.CharField(max_length = 500)
+    lat = models.FloatField()
+    lon = models.FloatField()
     price = models.FloatField()
     realtorFname = models.CharField(max_length = 30, blank = True, null = True)
     realtorLname = models.CharField(max_length = 30, blank = True, null = True)
