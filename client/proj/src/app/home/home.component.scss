@@ -1,12 +1,20 @@
 .container {
-	display: grid;
-	grid-template-columns: 100% auto;
+	padding: 1em;
 }
 
-.col {
-	padding: .4em 1.3em;
+
+
+input.number {
+	border: 0;
+	padding: 1em;
+	width: 80%;
+	margin-bottom: 2em;
 }
 
-h3 {
-	color: #fff
+input.btn {
+	border: 0;
+	display:block;
+	padding:1em 3em;
+	margin-bottom:1em;
+	cursor:pointer;
 }

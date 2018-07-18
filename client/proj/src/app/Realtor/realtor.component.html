@@ -1,5 +1,5 @@
-<div class="container">
-	<div class="col" style="height: 100">
+<div class="container color-light">
+	<div class="col">
 		<div style="width: 100px; padding:0 10px;">
 
 			<form>
@@ -10,12 +10,15 @@
       	<input name="realtorEmail" class="text" id="realtorEmail" type="text" placeholder="Email" [(ngModel)]="realtorEmail">
       	<input name="phone_number" class="text" id="phone_number" type="text" placeholder="Phone Number" [(ngModel)]="phone_number">
 
+				<input name="btn" type="submit" class="btn" value="Submit" (click)="submitHousePosting()">
+
 				<label for="imageUpload">Image Upload</label>
 			   <!-- <input type="file" (change)="fileEvent($event)" name="imageUpload" id="imageUpload"/> -->
 
-				<input name="btn" type="submit" class="btn btn-success btn-lg" value="Submit" (click)="submitPosting()">
+				<input name="btn" type="submit" class="btn" value="Submit" (click)="submitHousePosting()">
 			</form>
 
 		</div>
+
 	</div>
 </div>
