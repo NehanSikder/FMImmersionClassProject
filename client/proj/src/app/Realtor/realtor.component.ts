@@ -20,6 +20,9 @@ export class RealtorComponent implements OnInit {
   image: any;
   houseId: number;
   houseList: Array<object> = [];
+  latitude: number;
+  longitude: number;
+  api_key: string = 'AIzaSyBEHLjxQrMH3BbMhtjYG89O-7IKx05uwPw'
 
   constructor(private http : HttpClient, private  apiService:  APIService){
   }
@@ -49,7 +52,7 @@ this.apiService.createContact(contact).subscribe((response) => {
 }
 }
 */
-  
+
   submitPicPosting(picURL) {
     if (this.houseId == null) {
       // do nothing, shoudl create alert to tell user to first post a house!
@@ -61,27 +64,51 @@ this.apiService.createContact(contact).subscribe((response) => {
       this.apiService.createPic(picture).subscribe((data) => {
         console.log(data);
       });
-      
 
-    }  
 
-  }
-  submitHousePosting(){
-    var house = {
-        'address' : this.address,
-        'price' : this.price,
-        'realtorFname' : this.realtorFname,
-        'realtorLname' : this.realtorLname,
-        'realtorEmail' : this.realtorEmail,
-        'phone_number' : this.phone_number,
     }
-    this.apiService.createHouse(house).subscribe((data) => {
-        console.log(data);
-        this.houseId = data['houseID'];
-    });  
 
   }
 
+  submitHousePosting(){
+    this.getHouseLocationThenPost(this.address, this.price, this.realtorFname, this.realtorLname, this.realtorEmail, this.phone_number);
+  }
+
+  getHouseLocationThenPost(address: string, price: number, realtorFname: string, realtorLname: string, realtorEmail: string, phone_number: number){
+
+    var _apiService = this.apiService
+
+    var address_split = this.address.split(" ")
+    var address_parameter: string = address_split[0];
+    for(var i = 1; i < address_split.length; i++)
+      address_parameter = address_parameter + "+" + address_split[i]
+
+
+    this.http.get<any>('https://maps.googleapis.com/maps/api/geocode/json?address=' + address_parameter + 'key=' + this.api_key)
+              .subscribe(function(response){
+
+                  this.latitude = response.results[0].geometry.location.lat;
+                  this.longitude = response.results[0].geometry.location.lng;
+
+                  var house = {
+                      'address' : address,
+                      'price' : price,
+                      'realtorFname' : realtorFname,
+                      'realtorLname' : realtorLname,
+                      'realtorEmail' : realtorEmail,
+                      'phone_number' : phone_number,
+                      'latitude': this.latitude,
+                      'longitude': this.longitude
+                  }
+
+                  console.log('House posted is: ', house)
+                  _apiService.createHouse(house).subscribe((data) => {
+                      console.log(data);
+                      this.houseId = data['houseID'];
+                  });
+
+              });;
+  }
 
   fileEvent(fileInput: any) {
     const AWSService = AWS;
@@ -110,9 +137,9 @@ this.apiService.createContact(contact).subscribe((response) => {
         // creates the  unique name to be stores in the s3 bucket
         uuid = data.substring(0, data.length-2);
         this.image = uuid;
-        s3.upload({ 
-           Key: uuid, 
-           Bucket: bucketName, 
+        s3.upload({
+           Key: uuid,
+           Bucket: bucketName,
            Body: file,
            ACL: 'public-read',
            ContentType: file.type
@@ -125,7 +152,7 @@ this.apiService.createContact(contact).subscribe((response) => {
            }
        });
     });
- 
+
 
 
 
