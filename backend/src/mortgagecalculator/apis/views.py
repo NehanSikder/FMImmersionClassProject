@@ -25,8 +25,6 @@ FIELDS  = [
         'realtorLname',
         'realtorEmail',
         'phone_number',
-        'longitude',
-        'latitude',
 ]
 
 @method_decorator(csrf_exempt, name='dispatch')
