@@ -46,9 +46,10 @@ export class HomeComponent implements OnInit {
     var interestArr = dataArr[1];
 
     for(var i = 0; i < dataArr[0].length; i++){
-      principalArr[i] = parseFloat(principalArr[i]).toFixed(2)
-      interestArr[i] = parseFloat(interestArr[i]).toFixed(2)
-    }    
+      principalArr[i] = parseFloat(principalArr[i].toFixed(2))
+      interestArr[i] = parseFloat(interestArr[i].toFixed(2))
+    }
+    
     var date = new Date();
     var currentMonth = date.getMonth();
     var currentYear = date.getFullYear();
