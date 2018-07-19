@@ -41,7 +41,7 @@
             <div  *ngFor="let house of houses" class="card-body">
               <h5 class="card-title">Eric</h5>
               <p class="card-text">{{house.address}}</p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
+              <button class="btn btn-primary" (click)="insertPrincipleToCalculator(house.price)">Go somewhere</button>
             </div>
 
           </div>

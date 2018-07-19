@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { APIService } from  '../api.service';
+import { GalleryService } from  '../gallery.service';
+
+
 
 @Component({
   selector: 'app-gallery',
@@ -9,7 +12,8 @@ import { APIService } from  '../api.service';
 })
 export class GalleryComponent implements OnInit {
   houses : Array<House>;
-  constructor(private http : HttpClient, private  apiService:  APIService) {
+  principalInput : number;
+  constructor(private http : HttpClient, private  apiService:  APIService, private galleryService: GalleryService) {
     this.houses = new Array<House>();
   }
 
@@ -30,7 +34,16 @@ export class GalleryComponent implements OnInit {
           this.houses.push(newHouse);
         }
     }); 
+    this.galleryService.currentMessage.subscribe(message => this.principalInput = message);
   }
+
+  insertPrincipleToCalculator(housePrice,element){
+    //insert house principal into calculator
+      this.galleryService.newMessage(housePrice);
+    //scroll down to calculator
+
+  }
+ 
 
 }
 

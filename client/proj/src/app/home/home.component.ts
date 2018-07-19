@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Chart } from 'chart.js';
 import { APIService } from  '../api.service';
+import { GalleryService } from  '../gallery.service';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -24,7 +25,7 @@ export class HomeComponent implements OnInit {
 
   monthsMap = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
-  constructor(private http : HttpClient, private  apiService:  APIService) {
+  constructor(private http : HttpClient, private  apiService:  APIService, private galleryService: GalleryService) {
     this.rate = null;
     this.principal = null;
     this.years = null;
@@ -150,7 +151,9 @@ export class HomeComponent implements OnInit {
               }]
             }
           }
-      })
+      });
+
+        this.galleryService.currentMessage.subscribe(message => this.principal = message);
   }
 
   calculate() {
