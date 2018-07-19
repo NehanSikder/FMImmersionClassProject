@@ -29,7 +29,8 @@ export class GalleryComponent implements OnInit {
             house.realtorLname,
             house.address,
             house.price,
-            house.pictures
+            house.picURL
+
           );
           this.houses.push(newHouse);
         }
@@ -59,7 +60,7 @@ export class House {
     public realtorLname : string,
     public address : string,
     public price : number,
-    public pictures : Array<string>,
+    public picURL : string,
   ) {
 
   }

@@ -44,7 +44,7 @@
 			<!-- <input name="btn" type="Next" class="btn btn-primary" (click)="submitHousePosting()"> -->
 
 			<!-- Button trigger modal -->
-			<button name="btn"  class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" (click)="submitHousePosting()">
+			<button name="btn"  class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" >
 				Next
 			</button>
 
@@ -64,7 +64,7 @@
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary" data-dismiss="modal">Go Back</button>
-							<button type="button" class="btn btn-primary">Upload</button>
+							<button type="button" class="btn btn-primary" (click)="submitAll()">Finish</button>
 						</div>
 					</div>
 				</div>

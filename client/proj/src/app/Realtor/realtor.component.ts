@@ -20,6 +20,7 @@ export class RealtorComponent implements OnInit {
   image: any;
   houseId: number;
   houseList: Array<object> = [];
+  pictureList : Array<string> = [];
   api_key: string = 'AIzaSyBEHLjxQrMH3BbMhtjYG89O-7IKx05uwPw'
 
   constructor(private http : HttpClient, private  apiService:  APIService){
@@ -69,19 +70,18 @@ this.apiService.createContact(contact).subscribe((response) => {
     }
 
   }
-
-  submitHousePosting(){
-    this.getHouseLocationThenPost(this.address, this.price, this.realtorFname, this.realtorLname, this.realtorEmail, this.phone_number);
+  currentHousePosting(){
+    this.getHouseLocationThenPost(this.address, this.price, this.realtorFname, this.realtorLname, this.realtorEmail, this.phone_number, this.image);
   }
 
-  getHouseLocationThenPost(address: string, price: number, realtorFname: string, realtorLname: string, realtorEmail: string, phone_number: string){
+  getHouseLocationThenPost(address: string, price: number, realtorFname: string, realtorLname: string, realtorEmail: string, phone_number: string, picURL : string){
 
     var _apiService = this.apiService
 
-    var address_split = this.address.split(" ")
-    var address_parameter: string = address_split[0];
-    for(var i = 1; i < address_split.length; i++)
-      address_parameter = address_parameter + "+" + address_split[i]
+    // var address_split = this.address.split(" ")
+    // var address_parameter: string = address_split[0];
+    // for(var i = 1; i < address_split.length; i++)
+    //   address_parameter = address_parameter + "+" + address_split[i]
 
 
     // this.http.get<any>('https://maps.googleapis.com/maps/api/geocode/json?address=' + address_parameter + 'key=' + this.api_key)
@@ -96,7 +96,8 @@ this.apiService.createContact(contact).subscribe((response) => {
                       'realtorFname' : realtorFname,
                       'realtorLname' : realtorLname,
                       'realtorEmail' : realtorEmail,
-                      'phone_number' : phone_number
+                      'phone_number' : phone_number,
+                      'picURL' : picURL,
                   }
 
                   console.log('House posted is: ', house)
@@ -107,14 +108,37 @@ this.apiService.createContact(contact).subscribe((response) => {
 
               // });;
   }
+  submitAll() {
+    this.currentHousePosting();
+    console.log(this.houseId);
+    // this.submitPictures();
+  }
+  submitPictures() {
+    console.log(this.pictureList);
+    var MapiService = this.apiService;
+    for (let pic in this.pictureList) {
+      if (this.houseId == null) {
+        // do nothing, shoudl create alert to tell user to first post a house!
+      } else {
+        var picture = {
+          'houseFkey' : this.houseId,
+          'picURL' : pic
+        }
+        MapiService.createPic(picture).subscribe((data) => {
+          console.log(data);
+        });
 
+
+      }
+    }
+   
+  }
   fileEvent(fileInput: any) {
     const AWSService = AWS;
     const region = 'us-east-1';
     const bucketName = 'fmimmersionbuket';
     const IdentityPoolId = 'us-east-1:b6f9b2b1-792b-4cc3-98d5-4dc9788b30e8';
     const file = fileInput.target.files[0];
-    console.log(file);
     var uuid;
       //Configures the AWS service and initial authorization
     AWSService.config.update({
@@ -134,7 +158,7 @@ this.apiService.createContact(contact).subscribe((response) => {
 
         // creates the  unique name to be stores in the s3 bucket
         uuid = data.substring(0, data.length-2);
-        this.image = uuid;
+        this.image = 'https://s3.amazonaws.com/fmimmersionbuket/'+uuid;
         s3.upload({
            Key: uuid,
            Bucket: bucketName,
@@ -146,7 +170,23 @@ this.apiService.createContact(contact).subscribe((response) => {
              console.log(err, 'there was an error uploading your file');
            } else {
              console.log('no error in S3 upload');
-             this.submitPicPosting('https://s3.amazonaws.com/fmimmersionbuket/'+uuid);
+             // var picURL = 'https://s3.amazonaws.com/fmimmersionbuket/'+uuid;
+
+             // var _apiService = new APIService();
+             //     if (this.houseId == null) {
+             //      // do nothing, shoudl create alert to tell user to first post a house!
+             //    } else {
+             //      var picture = {
+             //        'houseFkey' : this.houseId,
+             //        'picURL' : picURL
+             //      }
+             //      _apiService.createPic(picture).subscribe((data) => {
+             //        console.log(data);
+             //      });
+
+
+             //    }
+             // this.submitPicPosting('https://s3.amazonaws.com/fmimmersionbuket/'+uuid);
            }
        });
     });
