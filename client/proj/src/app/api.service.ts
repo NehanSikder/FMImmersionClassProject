@@ -17,9 +17,9 @@ export  class  APIService {
 	    return temp;
 	}
 	createHouse(house){
-	    return  this.httpClient.post(`${this.API_POST_HOUSE_URL}`, house, {responseType: 'json'});
+	    return  this.httpClient.post(`${this.API_POST_HOUSE_URL}`, house, {responseType: 'text'});
 	}
 	createPic(pic) {
-		return  this.httpClient.post(`${this.API_POST_PIC_URL}`, pic, {responseType: 'json'});
+		return  this.httpClient.post(`${this.API_POST_PIC_URL}`, pic, {responseType: 'text'});
 	}
 }
