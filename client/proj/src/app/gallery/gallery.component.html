@@ -1,27 +1,34 @@
-<div class="container">
-  <div class="row" style="align:center">
 
-<div  *ngFor="let house of houses">
-    <div class="col" style="width:100%">
-      <div class="card" style="width: 18rem">
-        <!-- TODO: change src to house.img or whatever -->
-               <img class="d-block w-100" [src]="house.picURL"
-                      alt="Third slide">
-                    </div>
-              <div class="card-body col" style="width:100%">
-              <h5 class="card-title">{{house.realtorLname}}</h5>
-              <p class="card-text">{{house.address}}<br>${{house.price}}</p>
-              <button class="btn btn-primary" (click)="insertPrincipleToCalculator(house.price)">Go somewhere</button>
-              <br>
+
+    <div class="container" style="text-align:center">
+        <h2 class="text-monospace">Listing</h2>
+      <hr style="width: 100%; color: lightgray  6f77; height: 5px; background-color:lightgray;" />
+      </div>
+      
+      <div class="container">
+        <div class="row" >
+      
+          <div *ngFor="let house of houses" class="col-4">
+            <div style="width:100%;  background-color: #ffffff;">
               
-
+              <div class="card" style="padding: 5%">
+                  <img class="d-block w-100" [src]="house.picURL"
+                  alt="Third slide">
+                </div>
+          <div class="card-body col" style="width:100%">
+          <h5 class="card-title">{{house.realtorLname}}</h5>
+          <p class="card-text">{{house.address}}<br>${{house.price}}</p>
+          <button class="btn btn-primary" (click)="insertPrincipleToCalculator(house.price)">Calculate</button>
+          <br>
               </div>
-                   
+      
             </div>
-            </div>
-
+            <br>
           </div>
-    </div>
+      
+        </div>
+      </div>
+      
 
     
 
