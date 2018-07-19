@@ -41,6 +41,9 @@ export class GalleryComponent implements OnInit {
     //insert house principal into calculator
       this.galleryService.newMessage(housePrice);
     //scroll down to calculator
+    var elmnt = document.getElementById("calculator");
+    console.log(elmnt);
+    elmnt.scrollIntoView();
 
   }
  
