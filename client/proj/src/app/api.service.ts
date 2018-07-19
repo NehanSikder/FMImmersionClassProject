@@ -12,14 +12,14 @@ export  class  APIService {
 	constructor(private  httpClient:  HttpClient) {}
 	getData(){
 
-	    var temp = this.httpClient.get(`${this.API_GET_URL}`, {responseType: 'text'});
+	    var temp = this.httpClient.get(`${this.API_GET_URL}`, {responseType: 'json'});
 	    console.log(temp);
 	    return temp;
 	}
 	createHouse(house){
-	    return  this.httpClient.post(`${this.API_POST_HOUSE_URL}`, house, {responseType: 'text'});
+	    return  this.httpClient.post(`${this.API_POST_HOUSE_URL}`, house, {responseType: 'json'});
 	}
 	createPic(pic) {
-		return  this.httpClient.post(`${this.API_POST_PIC_URL}`, pic, {responseType: 'text'});
+		return  this.httpClient.post(`${this.API_POST_PIC_URL}`, pic, {responseType: 'json'});
 	}
 }
