@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Chart } from 'chart.js';
 import { APIService } from  '../api.service';
 import { GalleryService } from  '../gallery.service';
+import { RealtorService } from '../realtor.service';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -25,7 +26,7 @@ export class HomeComponent implements OnInit {
 
   monthsMap = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
-  constructor(private http : HttpClient, private  apiService:  APIService, private galleryService: GalleryService) {
+  constructor(private http : HttpClient, private  apiService:  APIService, private galleryService: GalleryService, private realtorService: RealtorService) {
     this.rate = null;
     this.principal = null;
     this.years = null;
@@ -49,7 +50,7 @@ export class HomeComponent implements OnInit {
       principalArr[i] = parseFloat(principalArr[i].toFixed(2))
       interestArr[i] = parseFloat(interestArr[i].toFixed(2))
     }
-    
+
     var date = new Date();
     var currentMonth = date.getMonth();
     var currentYear = date.getFullYear();
@@ -118,7 +119,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     // Calculations here to set ex
-        
+
         // this.getData()
         let axis = ['January', 'February', 'March', 'April', 'May', 'June', 'July']
         Chart.defaults.global.defaultFontColor = '#000';
@@ -159,6 +160,8 @@ export class HomeComponent implements OnInit {
       });
 
         this.galleryService.currentMessage.subscribe(message => this.principal = message);
+        this.realtorService.currentMessage.subscribe(message => this.principal = message);
+
   }
 
   calculate() {

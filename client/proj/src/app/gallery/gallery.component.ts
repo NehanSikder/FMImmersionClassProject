@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { APIService } from  '../api.service';
 import { GalleryService } from  '../gallery.service';
+//import { RealtorService } from  '../realtor.service';
+
 
 
 
@@ -13,11 +15,17 @@ import { GalleryService } from  '../gallery.service';
 export class GalleryComponent implements OnInit {
   houses : Array<House>;
   principalInput : number;
+  // constructor(private http : HttpClient, private  apiService:  APIService, private galleryService: GalleryService, private realtorService: RealtorService) {
+  //   this.houses = new Array<House>();
+  // }
+
   constructor(private http : HttpClient, private  apiService:  APIService, private galleryService: GalleryService) {
     this.houses = new Array<House>();
   }
 
   ngOnInit() {
+  //  this.realtorService.currentMessage.subscribe(message => this.reload = message);
+
     this.apiService.getData().subscribe(data => {
         console.log(typeof(data));
         for (let house of data["houses"]) {
@@ -34,7 +42,7 @@ export class GalleryComponent implements OnInit {
           );
           this.houses.push(newHouse);
         }
-    }); 
+    });
     this.galleryService.currentMessage.subscribe(message => this.principalInput = message);
   }
 
@@ -47,7 +55,7 @@ export class GalleryComponent implements OnInit {
     elmnt.scrollIntoView();
 
   }
- 
+
 
 }
 
