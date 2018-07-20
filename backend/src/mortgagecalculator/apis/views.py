@@ -25,6 +25,7 @@ FIELDS  = [
         'realtorLname',
         'realtorEmail',
         'phone_number',
+        'picURL'
 ]
 
 @method_decorator(csrf_exempt, name='dispatch')
@@ -66,12 +67,11 @@ class PostDataView(View):
             obj = HouseInfo.objects.create(
                 address = house['address'],
                 price = house['price'],
-                lat = house['latitude'],
-                lon = house['longitude'],
                 realtorFname = house['realtorFname'],
                 realtorLname = house['realtorLname'],
                 realtorEmail = house['realtorEmail'],
-                phone_number = house['phone_number']
+                phone_number = house['phone_number'],
+                picURL = house['picURL']
             )
         except Exception as e:
             return HttpResponse(e)
@@ -110,9 +110,7 @@ class GetDataView(View):
                 currHouse[f] = jsonify[f]
 
             # gets all pictures
-            pictures = HousePicture.objects.filter(houseFkey = houseId)
-            for p in pictures:
-                currHouse['pictures'].append(p)
+    
             jsonOutput['houses'].append(currHouse)
         return JsonResponse(jsonOutput, safe=False)
 
