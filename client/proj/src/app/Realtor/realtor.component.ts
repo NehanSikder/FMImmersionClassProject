@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import * as AWS from 'aws-sdk';
 import { HttpClient } from '@angular/common/http';
 import { APIService } from  '../api.service';
-//import { RealtorService } from  '../realtor.service';
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-realtor',
@@ -31,12 +31,16 @@ export class RealtorComponent implements OnInit {
   // constructor(private http : HttpClient, private  apiService:  APIService, private realtorService: RealtorService){
   // }
 
-   constructor(private http : HttpClient, private  apiService:  APIService){
+   constructor(private http : HttpClient, private  apiService:  APIService, private router: Router){
    }
   ngOnInit() {
-    this.apiService.getData().subscribe(data => {
-        //console.log(data);
-    });
+    this.address = null;
+    this.price = null;
+    this.realtorFname = null;
+    this.realtorLname = null;
+    this.realtorEmail = null;
+    this.phone_number = null;
+    this.image = null;
   }
 
   fileEvent(fileInput: any) {
@@ -142,5 +146,7 @@ export class RealtorComponent implements OnInit {
       //console.log('s3 urls pushed async: ', this.s3_url)
   }
 
-
+  redirect(){
+    this.ngOnInit()
+  }
 }
